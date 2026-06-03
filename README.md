@@ -1,10 +1,12 @@
-# 생성형 AI 시대에서 인간 구조적 사고의 교육적 의미
+# 1KmapStructureInvariance
 
-**부제:** 생성형 AI 언어 생성 구조와 카르노맵 시각적 패턴 해석 사례를 중심으로
+**논문 제목:** 생성형 AI 시대에서 인간 구조적 사고의 교육적 의미  
+**부제:** 생성형 AI 언어 생성 구조와 카르노맵 시각적 패턴 해석 사례를 중심으로  
+**GitHub Pages:** [포털 보기](https://inha20.github.io/1KmapStructureInvariance/)
 
 ---
 
-## 초록 요약
+## Abstract (초록 요약)
 
 생성형 AI는 확률적 패턴을 재현하지만, 인간은 구조를 인식·재배열하며 의미를 발견한다.
 본 연구는 카르노맵의 시각적 패턴 해석을 실증 사례로 삼아 이 차이를 분석하고,
@@ -15,7 +17,7 @@
 
 ---
 
-## 핵심 기여
+## Key Contributions (핵심 기여)
 
 - 생성형 AI 언어 생성 구조와 인간 구조적 사고의 본질적 차이 분석
 - 카르노맵 XOR/XNOR 체커보드 패턴 — 인간 구조 인식의 실증 사례 제시
@@ -24,10 +26,10 @@
 
 ---
 
-## 저장소 구조
+## Repository Structure (저장소 구조)
 
 ```
-생성형 AI 시대에서 인간 구조적 사고의 교육적 의미/
+1KmapStructureInvariance/
 ├─ README.md                          ← 이 파일
 ├─ index.html                         ← GitHub Pages 포털
 │
@@ -37,33 +39,23 @@
 ├─ research/
 │  └─ KMapEquivalenceTheory.md        ← 5.5절 원본 소논문 (변수 배치 동치류 이론)
 │
-├─ images/
-│  ├─ fig5_5_1_coordinate_system.svg  ← 카르노맵 좌표계 SVG
-│  ├─ ABCDXOR.png, ABCDXNOR.png ...  ← 변수 배치별 카르노맵 이미지
-│  └─ (카르노맵 관련 이미지 다수)
-│
-├─ docs/
-│  ├─ HANDOVER_MASTER.md             ← 작업 인수인계 마스터 문서
-│  └─ SUBMISSION_READINESS_REPORT.md ← 제출 직전 상태 점검 보고서
-│
-└─ archive/
-   ├─ 통합논문_최종완성본.md            ← 구버전 (5.5절 없음)
-   └─ 통합논문_최종완성본1.md           ← 중간버전
+└─ images/
+   ├─ fig5_5_1_coordinate_system.svg  ← 카르노맵 좌표계 SVG
+   ├─ ABCDXOR.png, ABCDXNOR.png ...  ← 변수 배치별 카르노맵 이미지
+   └─ (카르노맵 관련 이미지 다수)
 ```
 
 ---
 
-## 논문 파일
+## Paper Files (논문 파일)
 
 | 파일 | 상태 | 설명 |
 |---|---|---|
 | `paper/통합논문_제출준비본.md` | ✅ 최신 완성본 | 제출 준비 상태 |
-| `archive/통합논문_최종완성본1.md` | 구버전 | 5.5절 삽입 직후 버전 |
-| `archive/통합논문_최종완성본.md` | 구버전 | 5.5절 삽입 이전 버전 |
 
 ---
 
-## 5장 목차
+## Chapter 5 — Table of Contents (5장 목차)
 
 ```
 5장 사례 연구: 카르노맵 시각적 패턴 해석
@@ -89,7 +81,7 @@
 
 ---
 
-## 주요 수식
+## Key Formulas (주요 수식)
 
 | 정리 | 수식 | 위치 |
 |---|---|---|
@@ -103,16 +95,22 @@
 
 ---
 
-## 향후 연구
+## GitHub Setup (GitHub 설정)
 
-카르노맵 패턴 분석 → 대칭성 분석 → 변수 재배열 연구 → 구조 불변성 연구
-→ 군론(D₄, S₄) 기반 해석 → 인간 구조 이해 연구 → AI와 인간 비교
+> ⚠️ **이미지 URL 확인 필수:** 논문 내 이미지는 GitHub user-attachments URL을 사용합니다.
+> 최종 제출 전 모든 이미지 URL을 브라우저에서 직접 확인하고,
+> GitHub 저장소가 **public** 상태인지 점검하세요.  
+> 상세 내용: `docs/SUBMISSION_READINESS_REPORT.md` 참조
+
+**GitHub Pages 활성화 방법:**
+1. GitHub에서 이 저장소를 `public`으로 설정
+2. Settings → Pages → Source: `main` 브랜치 `/` (root) 선택
+3. `index.html`이 포털 페이지로 자동 배포됨
+4. URL: `https://inha20.github.io/1KmapStructureInvariance/`
 
 ---
 
-## 제출 전 확인 사항
+## Future Work (향후 연구)
 
-> ⚠️ 논문 내 이미지는 GitHub user-attachments URL을 사용합니다.
-> 최종 제출 전 모든 이미지 URL을 브라우저에서 직접 확인하고,
-> GitHub 저장소가 public 상태인지 점검하세요.
-> 상세 내용: `docs/SUBMISSION_READINESS_REPORT.md` 참조
+카르노맵 패턴 분석 → 대칭성 분석 → 변수 재배열 연구 → 구조 불변성 연구
+→ 군론(D₄, S₄) 기반 해석 → 인간 구조 이해 연구 → AI와 인간 비교
