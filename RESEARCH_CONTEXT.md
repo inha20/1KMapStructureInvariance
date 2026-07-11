@@ -67,4 +67,4 @@ This repositions Karnaugh maps from optimization tools to **visual structure ana
 ---
 
 *Maintained as part of the Structure Recognition Research Program*  
-*Author: Choi Jonghun, Inha University*
+*Author: Choi Jonghun · Independent researcher · Graduate of Inha Technical College*
