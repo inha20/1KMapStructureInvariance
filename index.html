@@ -1,324 +1,597 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>생성형 AI 시대에서 인간 구조적 사고의 교육적 의미</title>
-  <meta name="description" content="Research by Jonghun Choi, an independent researcher and graduate of Inha Technical College, on the educational significance of human structural thinking in the generative AI era. Uses Karnaugh map XOR/XNOR checkerboard patterns as an empirical case and proves via D4 group theory that the 24 four-variable arrangements reduce to exactly 3 independent equivalence classes (AB/CD, AC/BD, AD/BC)." />
-  <meta name="keywords" content="Karnaugh map, generative AI, structural thinking, XOR XNOR checkerboard pattern, D4 group theory, equivalence class, variable arrangement, structure recognition, human cognition, education, Inha Technical College" />
+  <title>생성형 AI 시대에서의 인간 구조적 사고의 교육적 의미 | Paper 1</title>
+  <meta name="description" content="인하공업전문대학 출신 독립 연구자 최종훈의 논문. 생성형 AI 시대 인간의 구조적 사고가 갖는 교육적 의미를 카르노맵 XOR/XNOR 체커보드 패턴의 D4 군론 기반 동치류 축약(24→6→3) 실증 사례를 통해 규명합니다." />
+  <meta name="keywords" content="카르노맵, 생성형 AI, 구조적 사고, 체커보드 패턴, D4 군론, 동치류, 변수 배치, 구조 인식, 인간 인지, 공학교육, 인하공업전문대학, 최종훈" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --border: #2a2d3e;
-      --accent: #6c8ebf;
-      --accent2: #5cb8b2;
-      --text: #e2e6f0;
-      --muted: #8891a8;
-      --tag-bg: #1e2538;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      min-height: 100vh;
+      --font-serif: 'Newsreader', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Dark Theme Default for Paper 1 */
+      --bg: #0d0f17;
+      --bg-alt: #131622;
+      --surface: #181b2a;
+      --border: #262a3e;
+      --border-focus: #60a5fa;
+      --text: #f1f3fa;
+      --text-muted: #9ba1b9;
+      --text-faint: #636882;
+
+      --accent: #60a5fa;
+      --accent-hover: #93c5fd;
+      --accent-glow: rgba(96, 165, 250, 0.12);
+      --accent-surface: #162238;
+
+      --teal: #2dd4bf;
+      --teal-bg: #11292b;
+      --amber: #fbbf24;
+      --amber-bg: #292011;
+
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+
+      --container-max: 960px;
     }
 
-    /* ── Header ── */
-    header {
-      border-bottom: 1px solid var(--border);
-      padding: 3rem 2rem 2.5rem;
-      max-width: 860px;
+    [data-theme="light"] {
+      --bg: #fbfbf9;
+      --bg-alt: #f4f3ef;
+      --surface: #ffffff;
+      --border: #e6e3dc;
+      --border-focus: #254b8c;
+      --text: #1a1b26;
+      --text-muted: #575a6e;
+      --text-faint: #898c9f;
+
+      --accent: #254b8c;
+      --accent-hover: #1b3868;
+      --accent-glow: rgba(37, 75, 140, 0.08);
+      --accent-surface: #eef3fc;
+
+      --teal: #0d9488;
+      --teal-bg: #f0fdfa;
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
+
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.06);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.75;
+      letter-spacing: -0.01em;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: radial-gradient(var(--border) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    a:hover {
+      color: var(--accent-hover);
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
       margin: 0 auto;
+      padding: 0 1.5rem;
     }
-    .label {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      margin-bottom: 0.9rem;
+
+    /* Top Sticky Nav */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(13, 15, 23, 0.85);
+      border-bottom: 1px solid var(--border);
+      transition: background-color 0.3s ease;
     }
-    h1 {
-      font-size: clamp(1.35rem, 3.5vw, 2rem);
+    [data-theme="light"] .site-header {
+      background: rgba(251, 251, 249, 0.85);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--teal), var(--accent));
+      color: white;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
       font-weight: 700;
-      line-height: 1.35;
-      margin-bottom: 0.6rem;
     }
-    .subtitle {
-      color: var(--muted);
-      font-size: 0.93rem;
-      margin-bottom: 1.5rem;
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      font-size: 0.85rem;
+      font-weight: 500;
     }
-    .tags {
+    .nav-links a { color: var(--text-muted); }
+    .nav-links a:hover { color: var(--text); }
+
+    .theme-toggle-btn {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .theme-toggle-btn svg {
+      width: 17px;
+      height: 17px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 4rem 0 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .paper-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      background: var(--teal-bg);
+      color: var(--teal);
+      border: 1px solid rgba(13, 148, 136, 0.3);
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4.5vw, 2.7rem);
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+    .hero-sub {
+      font-size: 1.08rem;
+      color: var(--text-muted);
+      margin-bottom: 1.4rem;
+      max-width: 800px;
+    }
+    .tag-cloud {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
     }
-    .tag {
-      background: var(--tag-bg);
+    .tag-chip {
+      background: var(--bg-alt);
       border: 1px solid var(--border);
-      color: var(--accent);
-      font-size: 0.75rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: 999px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-full);
     }
 
-    /* ── Main ── */
-    main {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 2.5rem 2rem 4rem;
+    /* Grid Layout */
+    .content-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      padding: 3rem 0;
     }
-    @media (max-width: 620px) { main { grid-template-columns: 1fr; } }
+    .grid-wide {
+      grid-column: 1 / -1;
+    }
 
-    /* ── Cards ── */
+    /* Cards */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.4rem 1.5rem;
-      transition: border-color 0.18s, box-shadow 0.18s;
+      border-radius: var(--radius-md);
+      padding: 1.6rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
     }
-    .card:hover { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent)22; }
-    .card-wide { grid-column: 1 / -1; }
-    .card h2 {
+    .card:hover {
+      border-color: var(--border-focus);
+      transform: translateY(-2px);
+    }
+    .card-title {
+      font-family: var(--font-mono);
       font-size: 0.78rem;
-      letter-spacing: 0.1em;
+      font-weight: 600;
       text-transform: uppercase;
-      color: var(--accent2);
-      margin-bottom: 0.9rem;
-    }
-    .card p { font-size: 0.91rem; color: var(--muted); }
-
-    /* Abstract */
-    .abstract-text {
-      font-size: 0.91rem;
-      color: var(--text);
-      opacity: 0.82;
-    }
-
-    /* TOC */
-    .toc-list { list-style: none; }
-    .toc-list li {
-      font-size: 0.88rem;
-      padding: 0.2rem 0;
-      color: var(--muted);
-      border-bottom: 1px solid var(--border);
-    }
-    .toc-list li:last-child { border-bottom: none; }
-    .toc-list li b { color: var(--text); font-weight: 600; }
-    .toc-list li.highlight b { color: var(--accent2); }
-
-    /* Theorems */
-    .theorem-grid { display: grid; gap: 0.6rem; }
-    .theorem-item {
-      background: var(--bg);
-      border-left: 3px solid var(--accent);
-      padding: 0.5rem 0.8rem;
-      border-radius: 0 6px 6px 0;
-    }
-    .theorem-item .formula {
-      font-family: 'Courier New', monospace;
-      font-size: 0.84rem;
-      color: var(--accent2);
-    }
-    .theorem-item .loc {
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-top: 0.15rem;
-    }
-
-    /* Files */
-    .file-list { display: grid; gap: 0.5rem; }
-    .file-item {
+      letter-spacing: 0.08em;
+      color: var(--teal);
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
-      gap: 0.7rem;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0.55rem 0.8rem;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 0.87rem;
-      transition: border-color 0.15s;
+      gap: 0.5rem;
     }
-    .file-item:hover { border-color: var(--accent); }
-    .file-icon { font-size: 1rem; opacity: 0.7; }
-    .badge {
-      margin-left: auto;
-      font-size: 0.68rem;
-      padding: 0.15rem 0.5rem;
-      border-radius: 4px;
-      background: var(--tag-bg);
-      color: var(--accent2);
-      border: 1px solid var(--border);
-    }
-    .badge.new { background: #1a2e2c; color: #5cb8b2; border-color: #2d4d4a; }
 
-    /* Contribution pills */
-    .contrib-list { display: flex; flex-direction: column; gap: 0.55rem; }
+    /* Abstract Text */
+    .abstract-p {
+      font-size: 1.02rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    /* Theorem List */
+    .theorem-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .theorem-box {
+      background: var(--bg-alt);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 0.75rem 1rem;
+    }
+    .formula {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--teal);
+      margin-bottom: 0.2rem;
+    }
+    .theorem-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Contributions */
+    .contrib-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
     .contrib-item {
       display: flex;
       align-items: flex-start;
-      gap: 0.6rem;
-      font-size: 0.88rem;
+      gap: 0.75rem;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--text);
     }
-    .contrib-dot {
-      margin-top: 0.35rem;
-      width: 7px; height: 7px;
-      border-radius: 50%;
+    .contrib-bullet {
+      width: 7px;
+      height: 7px;
       background: var(--accent);
+      border-radius: 50%;
+      margin-top: 0.5rem;
       flex-shrink: 0;
     }
 
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      text-align: center;
-      padding: 1.5rem 2rem;
-      font-size: 0.78rem;
-      color: var(--muted);
+    /* Table of Contents */
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
     }
-    footer a { color: var(--accent); text-decoration: none; }
+    .toc-item {
+      font-size: 0.88rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: var(--radius-sm);
+      display: flex;
+      gap: 0.6rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .toc-item:last-child {
+      border-bottom: none;
+    }
+    .toc-item b {
+      color: var(--text);
+      font-family: var(--font-mono);
+    }
+    .toc-item.highlight {
+      background: var(--accent-surface);
+      color: var(--accent);
+    }
+    .toc-item.highlight b {
+      color: var(--accent);
+    }
+
+    /* Files List */
+    .file-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .file-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      font-size: 0.88rem;
+      font-family: var(--font-mono);
+      transition: all 0.2s ease;
+    }
+    .file-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .file-badge {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--teal);
+    }
+
+    /* Footer */
+    .site-footer {
+      margin-top: auto;
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="label">Academic Paper · Educational Research</div>
-  <h1>생성형 AI 시대에서 인간 구조적 사고의 교육적 의미</h1>
-  <div class="subtitle">생성형 AI 언어 생성 구조와 카르노맵 시각적 패턴 해석 사례를 중심으로</div>
-  <div class="tags">
-    <span class="tag">Generative AI</span>
-    <span class="tag">Structural Thinking</span>
-    <span class="tag">Karnaugh Map</span>
-    <span class="tag">Equivalence Classes</span>
-    <span class="tag">D₄ Group Theory</span>
-    <span class="tag">Education</span>
-  </div>
-</header>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="brand-mark">P1</div>
+        <div>1KMapStructureInvariance</div>
+      </div>
 
-<main>
-
-  <!-- Abstract -->
-  <div class="card card-wide">
-    <h2>초록 / Abstract</h2>
-    <p class="abstract-text">
-      생성형 AI는 확률적 패턴을 재현하지만, 인간은 구조를 인식·재배열하며 의미를 발견한다.
-      본 연구는 카르노맵의 시각적 패턴 해석을 실증 사례로 삼아 이 차이를 분석하고,
-      생성형 AI 시대 교육이 사고 과정 중심으로 발전해야 함을 제안한다.
-      특히 <b>5.5절</b>에서는 4변수 카르노맵 변수 배치의 동치류 이론을 D₄ 군론을 통해 수학적으로 전개하여,
-      독립 배치가 정확히 <b>세 가지(AB/CD, AC/BD, AD/BC)</b>로 한정됨을 증명한다.
-    </p>
-  </div>
-
-  <!-- Key Theorems -->
-  <div class="card">
-    <h2>핵심 수식 / Key Theorems</h2>
-    <div class="theorem-grid">
-      <div class="theorem-item">
-        <div class="formula">XY/ZW ≡ YX/ZW</div>
-        <div class="loc">행 변수 순서 교환 · §5.5.2</div>
-      </div>
-      <div class="theorem-item">
-        <div class="formula">XY/ZW ≡ XY/WZ</div>
-        <div class="loc">열 변수 순서 교환 · §5.5.2</div>
-      </div>
-      <div class="theorem-item">
-        <div class="formula">XY/ZW ≡ ZW/XY</div>
-        <div class="loc">축 교환 · §5.5.3</div>
-      </div>
-      <div class="theorem-item">
-        <div class="formula">C(4,2)/2 = 3</div>
-        <div class="loc">독립 배치 수 · §5.5.5</div>
-      </div>
-      <div class="theorem-item">
-        <div class="formula">F(A,B,C,D) = F(C,D,A,B)</div>
-        <div class="loc">y=−x 대칭 · §5.8</div>
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <nav class="nav-links">
+          <a href="https://inha20.github.io/Research-Portfolio/">Research Program</a>
+          <a href="https://github.com/inha20/1KMapStructureInvariance" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/inha20/inha20">Profile</a>
+        </nav>
+        <button id="themeToggle" class="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle theme">
+          <svg id="themeIcon" viewBox="0 0 24 24">
+            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"></path>
+          </svg>
+        </button>
       </div>
     </div>
-  </div>
+  </header>
 
-  <!-- Contributions -->
-  <div class="card">
-    <h2>핵심 기여 / Contributions</h2>
-    <div class="contrib-list">
-      <div class="contrib-item">
-        <div class="contrib-dot"></div>
-        <span>생성형 AI 언어 생성과 인간 구조적 사고의 본질적 차이 분석</span>
+  <main class="container">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-meta">
+        <span class="paper-badge">Academic Paper · Case Study 1</span>
+        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-faint);">D4 군론 & 카르노맵 불변성</span>
       </div>
-      <div class="contrib-item">
-        <div class="contrib-dot"></div>
-        <span>카르노맵 XOR/XNOR 체커보드 패턴 — 구조 인식의 실증 사례 제시</span>
+
+      <h1 class="hero-title">생성형 AI 시대에서의 인간 구조적 사고의 교육적 의미</h1>
+      <p class="hero-sub">생성형 AI 언어 생성 구조와 카르노맵 시각적 패턴 분석 사례를 중심으로</p>
+
+      <div class="tag-cloud">
+        <span class="tag-chip">Generative AI</span>
+        <span class="tag-chip">Structural Thinking</span>
+        <span class="tag-chip">Karnaugh Map</span>
+        <span class="tag-chip">Equivalence Classes</span>
+        <span class="tag-chip">D4 Group Theory</span>
+        <span class="tag-chip">Engineering Education</span>
       </div>
-      <div class="contrib-item">
-        <div class="contrib-dot"></div>
-        <span>변수 배치 동치류 이론: 24 → 6 → 3 축약 과정의 수학적 증명 (D₄ 군론)</span>
-      </div>
-      <div class="contrib-item">
-        <div class="contrib-dot"></div>
-        <span>생성형 AI 시대 사고 과정 중심 교육 방향 제안</span>
-      </div>
+    </section>
+
+    <!-- Content Grid -->
+    <div class="content-grid">
+
+      <!-- Abstract Card -->
+      <article class="card grid-wide">
+        <div class="card-title">초록 / Abstract</div>
+        <p class="abstract-p">
+          생성형 AI는 확률적 패턴을 재현하지만, 인간은 구조를 인식·재배열하고 의미를 발견한다.
+          본 연구는 카르노맵의 시각적 패턴 분석을 실증 사례로 삼아 이 차이를 분석하고,
+          생성형 AI 시대 공학교육이 단순 결과 도출을 넘어 사고 과정 중심으로 발전해야 함을 제안한다.
+          특히 <strong>5.5절</strong>에서는 4변수 카르노맵 변수 배치의 동치류 이론을 D4 2면체 군론을 통해 수학적으로 전개하여,
+          전체 24개 배치가 정확히 <strong>3가지(AB/CD, AC/BD, AD/BC)</strong>의 독립 동치류로 축약됨을 엄밀히 증명한다.
+        </p>
+      </article>
+
+      <!-- Key Theorems -->
+      <article class="card">
+        <div class="card-title">핵심 수식 & 동치류 / Key Theorems</div>
+        <div class="theorem-list">
+          <div class="theorem-box">
+            <div class="formula">XY/ZW ≡ YX/ZW</div>
+            <div class="theorem-desc">행 변수 순서 교환 (대칭 불변성) · §5.5.2</div>
+          </div>
+          <div class="theorem-box">
+            <div class="formula">XY/ZW ≡ XY/WZ</div>
+            <div class="theorem-desc">열 변수 순서 교환 (대칭 불변성) · §5.5.2</div>
+          </div>
+          <div class="theorem-box">
+            <div class="formula">XY/ZW ≡ ZW/XY</div>
+            <div class="theorem-desc">축 교환 (y = -x 주대각선 대칭) · §5.5.3</div>
+          </div>
+          <div class="theorem-box">
+            <div class="formula">C(4,2) / 2 = 3</div>
+            <div class="theorem-desc">독립 동치류 결정 공식 (AB/CD, AC/BD, AD/BC) · §5.5.5</div>
+          </div>
+          <div class="theorem-box">
+            <div class="formula">F(A,B,C,D) = F(C,D,A,B)</div>
+            <div class="theorem-desc">대각선 대칭 불변 함수 정의 · §5.8</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Contributions -->
+      <article class="card">
+        <div class="card-title">핵심 기여 / Contributions</div>
+        <div class="contrib-list">
+          <div class="contrib-item">
+            <div class="contrib-bullet"></div>
+            <span>생성형 AI의 확률적 언어 생성과 인간의 구조적 인지 간 본질적 차이 규명</span>
+          </div>
+          <div class="contrib-item">
+            <div class="contrib-bullet"></div>
+            <span>카르노맵 XOR/XNOR 체커보드 패턴 등 시각적 구조 인식의 실증 데이터 제시</span>
+          </div>
+          <div class="contrib-item">
+            <div class="contrib-bullet"></div>
+            <span>변수 배치 동치류 이론: 24 → 6 → 3 축약 과정의 수학적 엄밀 증명 (D4 군론)</span>
+          </div>
+          <div class="contrib-item">
+            <div class="contrib-bullet"></div>
+            <span>생성형 AI 시대 '사고 과정 중심'의 새로운 공학교육 및 학습 모델 제안</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Chapter 5 TOC -->
+      <article class="card">
+        <div class="card-title">제5장 세부 목차 / Chapter 5 Table of Contents</div>
+        <ul class="toc-list">
+          <li class="toc-item"><b>5.1</b> <span>인간 구조적 사고와의 연결</span></li>
+          <li class="toc-item"><b>5.2</b> <span>카르노맵 기존 방식의 한계</span></li>
+          <li class="toc-item"><b>5.3</b> <span>NAND/NOR 게이트의 카르노맵 해석</span></li>
+          <li class="toc-item"><b>5.4</b> <span>범용 게이트의 존재성 증명</span></li>
+          <li class="toc-item highlight"><b>5.5</b> <span>변수 배치의 수학적 분류: 동치류 이론</span></li>
+          <li class="toc-item"><b>5.6</b> <span>변수 재배열 기반 해석 방법</span></li>
+          <li class="toc-item"><b>5.7</b> <span>체커보드 패턴과 XOR/XNOR 구조</span></li>
+          <li class="toc-item"><b>5.8</b> <span>대각선 대칭 불변성</span></li>
+          <li class="toc-item"><b>5.9</b> <span>인간 구조적 사고의 현대적 고유성</span></li>
+        </ul>
+      </article>
+
+      <!-- Files -->
+      <article class="card">
+        <div class="card-title">핵심 파일 / Repository Files</div>
+        <div class="file-list">
+          <a class="file-link" href="https://github.com/inha20/1KMapStructureInvariance/blob/main/paper/통합논문_제출준비본.md" target="_blank" rel="noopener">
+            <span>📄 통합논문_제출준비본.md</span>
+            <span class="file-badge">최신 준비본</span>
+          </a>
+          <a class="file-link" href="https://github.com/inha20/1KMapStructureInvariance/blob/main/research/KMapEquivalenceTheory.md" target="_blank" rel="noopener">
+            <span>📄 KMapEquivalenceTheory.md</span>
+            <span class="file-badge">5.5절 원본</span>
+          </a>
+          <a class="file-link" href="https://github.com/inha20/1KMapStructureInvariance/blob/main/docs/HANDOVER_MASTER.md" target="_blank" rel="noopener">
+            <span>📄 HANDOVER_MASTER.md</span>
+            <span class="file-badge">인수인계</span>
+          </a>
+          <a class="file-link" href="https://github.com/inha20/1KMapStructureInvariance/blob/main/docs/SUBMISSION_READINESS_REPORT.md" target="_blank" rel="noopener">
+            <span>📄 SUBMISSION_READINESS_REPORT.md</span>
+            <span class="file-badge">제출 진단</span>
+          </a>
+        </div>
+      </article>
+
     </div>
-  </div>
 
-  <!-- Table of Contents -->
-  <div class="card">
-    <h2>5장 목차 / Chapter 5</h2>
-    <ul class="toc-list">
-      <li><b>5.1</b> 인간 구조적 사고와의 연결</li>
-      <li><b>5.2</b> 카르노맵 기존 방식의 한계</li>
-      <li><b>5.3</b> NAND/NOR 게이트의 카르노맵 해석</li>
-      <li><b>5.4</b> 범용 게이트의 존재성 증명</li>
-      <li class="highlight"><b>5.5</b> 변수 배치의 수학적 분류: 동치류 이론</li>
-      <li><b>5.6</b> 변수 재배열 기반 해석 방법</li>
-      <li><b>5.7</b> 체커보드 패턴과 XOR/XNOR 구조</li>
-      <li><b>5.8</b> 대칭성과 함수 불변식</li>
-      <li><b>5.9</b> 인간 구조적 사고의 사례인 이유</li>
-    </ul>
-  </div>
+  </main>
 
-  <!-- Files -->
-  <div class="card">
-    <h2>파일 목록 / Files</h2>
-    <div class="file-list">
-      <a class="file-item" href="paper/통합논문_제출준비본.md">
-        <span class="file-icon">📄</span>
-        통합논문_제출준비본.md
-        <span class="badge new">최신</span>
-      </a>
-      <a class="file-item" href="research/KMapEquivalenceTheory.md">
-        <span class="file-icon">🔬</span>
-        KMapEquivalenceTheory.md
-        <span class="badge">5.5절 원본</span>
-      </a>
-      <a class="file-item" href="docs/HANDOVER_MASTER.md">
-        <span class="file-icon">📋</span>
-        HANDOVER_MASTER.md
-        <span class="badge">인수인계</span>
-      </a>
-      <a class="file-item" href="docs/SUBMISSION_READINESS_REPORT.md">
-        <span class="file-icon">✅</span>
-        SUBMISSION_READINESS_REPORT.md
-        <span class="badge">제출 점검</span>
-      </a>
+  <footer class="site-footer">
+    <div class="container">
+      1KMapStructureInvariance · Jonghun Choi (최종훈) · Structure Recognition Research Program
     </div>
-  </div>
+  </footer>
 
-</main>
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlEl = document.documentElement;
 
-<footer>
-  <p>
-    1KMapStructureInvariance ·
-    <a href="https://github.com/inha20/1KMapStructureInvariance">GitHub Repository</a>
-  </p>
-</footer>
+    const moonPath = "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z";
+    const sunPath = "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z";
 
+    function setTheme(theme) {
+      htmlEl.setAttribute('data-theme', theme);
+      localStorage.setItem('p1_theme', theme);
+      if (theme === 'dark') {
+        themeIcon.innerHTML = `<path d="${sunPath}"></path>`;
+      } else {
+        themeIcon.innerHTML = `<path d="${moonPath}"></path>`;
+      }
+    }
+
+    const savedTheme = localStorage.getItem('p1_theme') || 'dark';
+    setTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = htmlEl.getAttribute('data-theme');
+      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+  </script>
 </body>
 </html>
