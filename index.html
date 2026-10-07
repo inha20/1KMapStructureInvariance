@@ -3,14 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>생성형 AI 시대에서의 인간 구조적 사고의 교육적 의미 | Paper 1</title>
-  <meta name="description" content="인하공업전문대학 출신 독립 연구자 최종훈의 논문. 생성형 AI 시대 인간의 구조적 사고가 갖는 교육적 의미를 카르노맵 XOR/XNOR 체커보드 패턴의 D4 군론 기반 동치류 축약(24→6→3) 실증 사례를 통해 규명합니다." />
-  <meta name="keywords" content="카르노맵, 생성형 AI, 구조적 사고, 체커보드 패턴, D4 군론, 동치류, 변수 배치, 구조 인식, 인간 인지, 공학교육, 인하공업전문대학, 최종훈" />
+  <title>생성형 AI 시대 인간 구조적 사고의 교육적 의미 | Paper 1</title>
+  <meta name="description" content="생성형 AI와 인간 구조 인식의 차이. 카르노맵 XOR/XNOR 체커보드 패턴, D4 군론을 통해 변수 배치 동치류를 엄밀 증명한 논문." />
+  <meta name="keywords" content="카르노맵, 생성형 AI, 군론, 동치류, D4, 구조 인식, 공학교육, 인하대, 최종훈" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
 
   <style>
     :root {
@@ -18,7 +24,6 @@
       --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
 
-      /* Dark Theme Default for Paper 1 */
       --bg: #0d0f17;
       --bg-alt: #131622;
       --surface: #181b2a;
@@ -38,15 +43,15 @@
       --amber: #fbbf24;
       --amber-bg: #292011;
 
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
-      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.35);
 
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 16px;
       --radius-full: 9999px;
 
-      --container-max: 960px;
+      --container-max: 980px;
     }
 
     [data-theme="light"] {
@@ -69,16 +74,11 @@
       --amber: #d97706;
       --amber-bg: #fffbeb;
 
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-      --shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.06);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px -2px rgba(0,0,0,0.06);
     }
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
@@ -95,339 +95,309 @@
       background-size: 32px 32px;
     }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-    a:hover {
-      color: var(--accent-hover);
-    }
+    a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
+    a:hover { color: var(--accent-hover); }
 
-    .container {
-      width: 100%;
-      max-width: var(--container-max);
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
+    .container { width: 100%; max-width: var(--container-max); margin: 0 auto; padding: 0 1.5rem; }
 
-    /* Top Sticky Nav */
+    /* ── Site Header ── */
     .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      background: rgba(13, 15, 23, 0.85);
+      position: sticky; top: 0; z-index: 1000;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      background: rgba(13,15,23,0.88);
       border-bottom: 1px solid var(--border);
       transition: background-color 0.3s ease;
     }
-    [data-theme="light"] .site-header {
-      background: rgba(251, 251, 249, 0.85);
-    }
+    [data-theme="light"] .site-header { background: rgba(251,251,249,0.88); }
 
     .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px; gap: 1rem;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-weight: 600;
-      font-size: 0.92rem;
-      color: var(--text);
-    }
+    .brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 600; font-size: 0.92rem; color: var(--text); }
     .brand-mark {
-      width: 28px;
-      height: 28px;
+      width: 28px; height: 28px;
       background: linear-gradient(135deg, var(--teal), var(--accent));
-      color: white;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-serif);
-      font-size: 0.95rem;
-      font-weight: 700;
+      color: white; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif); font-size: 0.95rem; font-weight: 700;
     }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-    .nav-links a { color: var(--text-muted); }
-    .nav-links a:hover { color: var(--text); }
-
-    .theme-toggle-btn {
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      color: var(--text);
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+    /* Global nav dropdown */
+    .global-nav { position: relative; }
+    .global-nav-trigger {
+      background: var(--bg-alt); border: 1px solid var(--border);
+      color: var(--text-muted); padding: 0.3rem 0.75rem;
+      border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; gap: 0.4rem;
       transition: all 0.2s ease;
     }
-    .theme-toggle-btn svg {
-      width: 17px;
-      height: 17px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
+    .global-nav-trigger:hover { border-color: var(--accent); color: var(--text); }
+    .global-nav-dropdown {
+      position: absolute; top: calc(100% + 8px); left: 0;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 0.5rem;
+      min-width: 220px; box-shadow: var(--shadow-md);
+      display: none; z-index: 2000;
     }
+    .global-nav:hover .global-nav-dropdown,
+    .global-nav-trigger:focus + .global-nav-dropdown { display: block; }
+    .global-nav-dropdown a {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.45rem 0.75rem; border-radius: var(--radius-sm);
+      font-size: 0.82rem; color: var(--text-muted); transition: all 0.15s ease;
+    }
+    .global-nav-dropdown a:hover { background: var(--bg-alt); color: var(--text); }
+    .global-nav-dropdown a.active { color: var(--accent); font-weight: 600; }
+    .nav-sep { height: 1px; background: var(--border); margin: 0.3rem 0; }
 
-    /* Hero */
-    .hero {
-      padding: 4rem 0 2.5rem;
-      border-bottom: 1px solid var(--border);
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+
+    .theme-toggle-btn {
+      background: var(--bg-alt); border: 1px solid var(--border);
+      color: var(--text); width: 36px; height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s ease;
     }
-    .hero-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-    }
+    .theme-toggle-btn svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+    /* ── Hero ── */
+    .hero { padding: 3.5rem 0 2rem; border-bottom: 1px solid var(--border); }
+    .hero-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
     .paper-badge {
-      display: inline-flex;
-      align-items: center;
+      display: inline-flex; align-items: center;
       padding: 0.25rem 0.75rem;
-      background: var(--teal-bg);
-      color: var(--teal);
-      border: 1px solid rgba(13, 148, 136, 0.3);
+      background: var(--teal-bg); color: var(--teal);
+      border: 1px solid rgba(45,212,191,0.3);
       border-radius: var(--radius-full);
-      font-size: 0.75rem;
-      font-weight: 600;
-      font-family: var(--font-mono);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      font-size: 0.75rem; font-weight: 600;
+      font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em;
     }
     .hero-title {
       font-family: var(--font-serif);
-      font-size: clamp(2rem, 4.5vw, 2.7rem);
-      font-weight: 600;
-      line-height: 1.3;
-      color: var(--text);
-      margin-bottom: 0.8rem;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 600; line-height: 1.3;
+      color: var(--text); margin-bottom: 0.75rem;
     }
-    .hero-sub {
-      font-size: 1.08rem;
-      color: var(--text-muted);
-      margin-bottom: 1.4rem;
-      max-width: 800px;
-    }
-    .tag-cloud {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
+    .hero-sub { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 1.4rem; max-width: 820px; }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .tag-chip {
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.78rem;
-      font-family: var(--font-mono);
-      padding: 0.2rem 0.65rem;
+      background: var(--bg-alt); border: 1px solid var(--border);
+      color: var(--text-muted); font-size: 0.78rem;
+      font-family: var(--font-mono); padding: 0.2rem 0.65rem;
       border-radius: var(--radius-full);
     }
 
-    /* Grid Layout */
+    /* ── Action Bar ── */
+    .action-bar {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+      padding: 1.5rem 0 2rem; border-bottom: 1px solid var(--border);
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.2rem; border-radius: var(--radius-full);
+      font-size: 0.86rem; font-weight: 600; cursor: pointer;
+      transition: all 0.2s ease; border: none;
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--accent); color: white;
+      box-shadow: 0 0 0 0 var(--accent-glow);
+    }
+    .btn-primary:hover { background: var(--accent-hover); color: white; transform: translateY(-1px); box-shadow: 0 4px 16px var(--accent-glow); }
+    .btn-ghost {
+      background: var(--bg-alt); border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--text); transform: translateY(-1px); }
+    .btn-copy { font-family: var(--font-sans); }
+
+    /* ── Content Grid ── */
     .content-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-      padding: 3rem 0;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; padding: 2.5rem 0;
     }
-    .grid-wide {
-      grid-column: 1 / -1;
-    }
+    .grid-wide { grid-column: 1 / -1; }
 
-    /* Cards */
     .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1.6rem;
-      box-shadow: var(--shadow-sm);
-      transition: all 0.25s ease;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 1.6rem;
+      box-shadow: var(--shadow-sm); transition: all 0.25s ease;
     }
-    .card:hover {
-      border-color: var(--border-focus);
-      transform: translateY(-2px);
-    }
+    .card:hover { border-color: var(--border-focus); transform: translateY(-2px); }
     .card-title {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--teal);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      font-family: var(--font-mono); font-size: 0.78rem;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--teal); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
     }
 
-    /* Abstract Text */
-    .abstract-p {
-      font-size: 1.02rem;
-      line-height: 1.8;
-      color: var(--text);
-    }
+    .abstract-p { font-size: 1.02rem; line-height: 1.85; color: var(--text); }
 
-    /* Theorem List */
-    .theorem-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
+    /* ── Theorem list ── */
+    .theorem-list { display: flex; flex-direction: column; gap: 0.75rem; }
     .theorem-box {
-      background: var(--bg-alt);
-      border-left: 3px solid var(--accent);
+      background: var(--bg-alt); border-left: 3px solid var(--accent);
       border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
       padding: 0.75rem 1rem;
     }
-    .formula {
-      font-family: var(--font-mono);
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--teal);
-      margin-bottom: 0.2rem;
-    }
-    .theorem-desc {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
+    .formula { font-family: var(--font-mono); font-size: 0.88rem; font-weight: 600; color: var(--teal); margin-bottom: 0.2rem; }
+    .theorem-desc { font-size: 0.8rem; color: var(--text-muted); }
 
-    /* Contributions */
-    .contrib-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .contrib-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      font-size: 0.92rem;
-      line-height: 1.6;
-      color: var(--text);
-    }
+    /* ── Contributions ── */
+    .contrib-list { display: flex; flex-direction: column; gap: 0.65rem; }
+    .contrib-item { display: flex; align-items: flex-start; gap: 0.65rem; }
     .contrib-bullet {
-      width: 7px;
-      height: 7px;
-      background: var(--accent);
-      border-radius: 50%;
-      margin-top: 0.5rem;
-      flex-shrink: 0;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0; margin-top: 0.5rem;
     }
 
-    /* Table of Contents */
-    .toc-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
+    /* ── Chapter TOC ── */
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
     .toc-item {
-      font-size: 0.88rem;
-      padding: 0.4rem 0.6rem;
-      border-radius: var(--radius-sm);
-      display: flex;
-      gap: 0.6rem;
-      color: var(--text-muted);
-      border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.45rem 0.75rem; border-radius: var(--radius-sm);
+      font-size: 0.9rem; color: var(--text-muted);
+      border-left: 2px solid transparent; transition: all 0.2s;
     }
-    .toc-item:last-child {
-      border-bottom: none;
-    }
-    .toc-item b {
-      color: var(--text);
-      font-family: var(--font-mono);
-    }
-    .toc-item.highlight {
-      background: var(--accent-surface);
-      color: var(--accent);
-    }
-    .toc-item.highlight b {
-      color: var(--accent);
-    }
+    .toc-item.highlight { border-left-color: var(--accent); color: var(--text); background: var(--accent-glow); }
+    .toc-item b { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); min-width: 2.5rem; }
 
-    /* Files List */
-    .file-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
+    /* ── File links ── */
+    .file-list { display: flex; flex-direction: column; gap: 0.5rem; }
     .file-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 0.75rem 1rem;
-      color: var(--text);
-      font-size: 0.88rem;
-      font-family: var(--font-mono);
-      transition: all 0.2s ease;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.65rem 0.9rem;
+      background: var(--bg-alt); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); font-size: 0.86rem;
+      color: var(--text-muted); transition: all 0.2s ease;
     }
-    .file-link:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
+    .file-link:hover { border-color: var(--accent); color: var(--text); background: var(--accent-glow); }
     .file-badge {
-      font-size: 0.72rem;
-      padding: 0.2rem 0.55rem;
-      border-radius: var(--radius-sm);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--teal);
+      font-size: 0.72rem; font-family: var(--font-mono);
+      background: var(--accent-surface); color: var(--accent);
+      padding: 0.15rem 0.5rem; border-radius: var(--radius-full);
     }
 
-    /* Footer */
+    /* ── Figure Gallery ── */
+    .figure-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .figure-card {
+      background: var(--bg-alt); border: 1px solid var(--border);
+      border-radius: var(--radius-md); overflow: hidden;
+      cursor: zoom-in; transition: all 0.25s ease;
+    }
+    .figure-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .figure-card img {
+      width: 100%; display: block;
+      background: #fff; /* white bg for transparent PNGs */
+    }
+    .figure-caption {
+      padding: 0.65rem 0.9rem;
+      font-size: 0.78rem; font-family: var(--font-mono);
+      color: var(--text-muted); line-height: 1.5;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,0.88);
+      display: none; align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: var(--radius-md); background: #fff; }
+    .lightbox-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      color: white; width: 40px; height: 40px; border-radius: 50%;
+      font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .lightbox-caption {
+      position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      background: rgba(0,0,0,0.6); color: #e0e0e0;
+      padding: 0.5rem 1.2rem; border-radius: var(--radius-full);
+      font-size: 0.82rem; font-family: var(--font-mono); white-space: nowrap;
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(1rem);
+      background: var(--surface); border: 1px solid var(--accent);
+      color: var(--text); padding: 0.65rem 1.4rem;
+      border-radius: var(--radius-full); font-size: 0.85rem;
+      opacity: 0; transition: all 0.3s ease; pointer-events: none; z-index: 9999;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── Footer ── */
     .site-footer {
-      margin-top: auto;
-      background: var(--bg-alt);
+      margin-top: auto; padding: 1.5rem 0;
       border-top: 1px solid var(--border);
-      padding: 2.5rem 0;
-      font-size: 0.85rem;
-      color: var(--text-muted);
+      font-size: 0.8rem; color: var(--text-faint);
       text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner { gap: 0.5rem; }
+      .action-bar { gap: 0.5rem; }
+      .btn { padding: 0.5rem 0.9rem; font-size: 0.8rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="이미지 확대">
+    <button class="lightbox-close" id="lightboxClose" aria-label="닫기">✕</button>
+    <img id="lightboxImg" src="" alt="" />
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">✅ BibTeX 복사 완료!</div>
+
   <!-- Header -->
   <header class="site-header">
-    <div class="container nav-inner">
-      <div class="brand">
-        <div class="brand-mark">P1</div>
-        <div>1KMapStructureInvariance</div>
-      </div>
+    <div class="container">
+      <nav class="nav-inner" aria-label="Main navigation">
+        <div class="brand">
+          <div class="brand-mark">P1</div>
+          <span>KMap Structure Invariance</span>
+        </div>
 
-      <div style="display: flex; align-items: center; gap: 1rem;">
-        <nav class="nav-links">
-          <a href="https://inha20.github.io/Research-Portfolio/">Research Program</a>
-          <a href="https://github.com/inha20/1KMapStructureInvariance" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://github.com/inha20/inha20">Profile</a>
-        </nav>
-        <button id="themeToggle" class="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle theme">
-          <svg id="themeIcon" viewBox="0 0 24 24">
-            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"></path>
-          </svg>
-        </button>
-      </div>
+        <!-- Global Research Nav -->
+        <div class="global-nav">
+          <button class="global-nav-trigger" aria-haspopup="true" aria-label="연구 허브 탐색">
+            <span>연구 허브</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+          </button>
+          <div class="global-nav-dropdown">
+            <a href="../Research-Portfolio-main/index.html">🏠 Research Hub</a>
+            <div class="nav-sep"></div>
+            <a href="../1KMapStructureInvariance-main/index.html" class="active">P1 · KMap Structure Invariance</a>
+            <a href="../2SymmetricBooleanFunctionMinorThesis-main/index.html">P2 · Symmetric Boolean Function</a>
+            <a href="../3VariableRearrangementInvarianceMinorThesis-main/index.html">P3 · Variable Rearrangement</a>
+            <a href="../4StructureRecognitionTheory-main/index.html">P4 · Structure Recognition Theory</a>
+            <a href="../5HumanAIResearchCollaboration-main/index.html">P5 · Human–AI Collaboration</a>
+            <a href="../6BooleanFunctionSpaceTheory-main/index.html">P6 · Boolean Function Space</a>
+            <div class="nav-sep"></div>
+            <a href="../inha20-main/index.html">👤 Researcher Profile</a>
+          </div>
+        </div>
+
+        <div class="nav-right">
+          <button class="theme-toggle-btn" id="themeToggle" aria-label="테마 토글">
+            <svg viewBox="0 0 24 24"><path id="themeIcon"></path></svg>
+          </button>
+        </div>
+      </nav>
     </div>
   </header>
 
@@ -437,12 +407,10 @@
     <section class="hero">
       <div class="hero-meta">
         <span class="paper-badge">Academic Paper · Case Study 1</span>
-        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-faint);">D4 군론 & 카르노맵 불변성</span>
+        <span style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-faint);">D4 군론 &amp; 카르노맵 불변성</span>
       </div>
-
       <h1 class="hero-title">생성형 AI 시대에서의 인간 구조적 사고의 교육적 의미</h1>
       <p class="hero-sub">생성형 AI 언어 생성 구조와 카르노맵 시각적 패턴 분석 사례를 중심으로</p>
-
       <div class="tag-cloud">
         <span class="tag-chip">Generative AI</span>
         <span class="tag-chip">Structural Thinking</span>
@@ -453,43 +421,56 @@
       </div>
     </section>
 
+    <!-- Action Bar -->
+    <div class="action-bar">
+      <a class="btn btn-primary" href="paper/통합논문_제출준비본.pdf" download>
+        📄 논문 PDF 다운로드 (31p)
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/inha20/1KMapStructureInvariance" target="_blank" rel="noopener">
+        ⭐ GitHub 저장소
+      </a>
+      <button class="btn btn-ghost btn-copy" id="bibtexCopyBtn" onclick="copyBibtex()">
+        📋 BibTeX 복사
+      </button>
+    </div>
+
     <!-- Content Grid -->
     <div class="content-grid">
 
-      <!-- Abstract Card -->
+      <!-- Abstract -->
       <article class="card grid-wide">
         <div class="card-title">초록 / Abstract</div>
         <p class="abstract-p">
           생성형 AI는 확률적 패턴을 재현하지만, 인간은 구조를 인식·재배열하고 의미를 발견한다.
           본 연구는 카르노맵의 시각적 패턴 분석을 실증 사례로 삼아 이 차이를 분석하고,
           생성형 AI 시대 공학교육이 단순 결과 도출을 넘어 사고 과정 중심으로 발전해야 함을 제안한다.
-          특히 <strong>5.5절</strong>에서는 4변수 카르노맵 변수 배치의 동치류 이론을 D4 2면체 군론을 통해 수학적으로 전개하여,
+          특히 <strong>5.5절</strong>에서는 4변수 카르노맵 변수 배치의 동치류 이론을 D4 이면체 군론을 통해 수학적으로 전개하여,
           전체 24개 배치가 정확히 <strong>3가지(AB/CD, AC/BD, AD/BC)</strong>의 독립 동치류로 축약됨을 엄밀히 증명한다.
         </p>
       </article>
 
       <!-- Key Theorems -->
       <article class="card">
-        <div class="card-title">핵심 수식 & 동치류 / Key Theorems</div>
+        <div class="card-title">핵심 수식 &amp; 동치류 / Key Theorems</div>
         <div class="theorem-list">
           <div class="theorem-box">
-            <div class="formula">XY/ZW ≡ YX/ZW</div>
+            <div class="formula">$XY/ZW \equiv YX/ZW$</div>
             <div class="theorem-desc">행 변수 순서 교환 (대칭 불변성) · §5.5.2</div>
           </div>
           <div class="theorem-box">
-            <div class="formula">XY/ZW ≡ XY/WZ</div>
+            <div class="formula">$XY/ZW \equiv XY/WZ$</div>
             <div class="theorem-desc">열 변수 순서 교환 (대칭 불변성) · §5.5.2</div>
           </div>
           <div class="theorem-box">
-            <div class="formula">XY/ZW ≡ ZW/XY</div>
-            <div class="theorem-desc">축 교환 (y = -x 주대각선 대칭) · §5.5.3</div>
+            <div class="formula">$XY/ZW \equiv ZW/XY$</div>
+            <div class="theorem-desc">축 교환 (y = −x 주대각선 대칭) · §5.5.3</div>
           </div>
           <div class="theorem-box">
-            <div class="formula">C(4,2) / 2 = 3</div>
+            <div class="formula">$\binom{4}{2} / 2 = 3$</div>
             <div class="theorem-desc">독립 동치류 결정 공식 (AB/CD, AC/BD, AD/BC) · §5.5.5</div>
           </div>
           <div class="theorem-box">
-            <div class="formula">F(A,B,C,D) = F(C,D,A,B)</div>
+            <div class="formula">$F(A,B,C,D) = F(C,D,A,B)$</div>
             <div class="theorem-desc">대각선 대칭 불변 함수 정의 · §5.8</div>
           </div>
         </div>
@@ -518,28 +499,91 @@
         </div>
       </article>
 
-      <!-- Chapter 5 TOC -->
+      <!-- Chapter TOC -->
       <article class="card">
-        <div class="card-title">제5장 세부 목차 / Chapter 5 Table of Contents</div>
+        <div class="card-title">제5장 세부 목차 / Chapter 5 Contents</div>
         <ul class="toc-list">
-          <li class="toc-item"><b>5.1</b> <span>인간 구조적 사고와의 연결</span></li>
-          <li class="toc-item"><b>5.2</b> <span>카르노맵 기존 방식의 한계</span></li>
-          <li class="toc-item"><b>5.3</b> <span>NAND/NOR 게이트의 카르노맵 해석</span></li>
-          <li class="toc-item"><b>5.4</b> <span>범용 게이트의 존재성 증명</span></li>
-          <li class="toc-item highlight"><b>5.5</b> <span>변수 배치의 수학적 분류: 동치류 이론</span></li>
-          <li class="toc-item"><b>5.6</b> <span>변수 재배열 기반 해석 방법</span></li>
-          <li class="toc-item"><b>5.7</b> <span>체커보드 패턴과 XOR/XNOR 구조</span></li>
-          <li class="toc-item"><b>5.8</b> <span>대각선 대칭 불변성</span></li>
-          <li class="toc-item"><b>5.9</b> <span>인간 구조적 사고의 현대적 고유성</span></li>
+          <li class="toc-item"><b>5.1</b><span>인간 구조적 사고와의 연결</span></li>
+          <li class="toc-item"><b>5.2</b><span>카르노맵 기존 방식의 한계</span></li>
+          <li class="toc-item"><b>5.3</b><span>NAND/NOR 게이트의 카르노맵 해석</span></li>
+          <li class="toc-item"><b>5.4</b><span>범용 게이트의 존재성 증명</span></li>
+          <li class="toc-item highlight"><b>5.5</b><span>변수 배치의 수학적 분류: 동치류 이론</span></li>
+          <li class="toc-item"><b>5.6</b><span>변수 재배열 기반 해석 방법</span></li>
+          <li class="toc-item"><b>5.7</b><span>체커보드 패턴과 XOR/XNOR 구조</span></li>
+          <li class="toc-item"><b>5.8</b><span>대각선 대칭 불변성</span></li>
+          <li class="toc-item"><b>5.9</b><span>인간 구조적 사고의 현대적 고유성</span></li>
         </ul>
+      </article>
+
+      <!-- Figure Gallery -->
+      <article class="card grid-wide">
+        <div class="card-title">📐 핵심 다이어그램 / Key Figures</div>
+        <div class="figure-gallery">
+          <div class="figure-card" onclick="openLightbox('images/coordinate_transformation_rows_column_swap.png','좌표 변환: 행·열 변수 교환')">
+            <img src="images/coordinate_transformation_rows_column_swap.png" alt="좌표 변환 행열 변수 교환" loading="lazy" />
+            <div class="figure-caption">Fig 1 · 좌표 변환: 행·열 변수 교환</div>
+          </div>
+          <div class="figure-card" onclick="openLightbox('images/row_variable_swap_kmap_comparison.png','행 변수 교환 카르노맵 비교')">
+            <img src="images/row_variable_swap_kmap_comparison.png" alt="행 변수 교환 카르노맵 비교" loading="lazy" />
+            <div class="figure-caption">Fig 2 · 행 변수 교환 카르노맵 비교</div>
+          </div>
+          <div class="figure-card" onclick="openLightbox('images/column_variable_swap_kmap_comparison.png','열 변수 교환 카르노맵 비교')">
+            <img src="images/column_variable_swap_kmap_comparison.png" alt="열 변수 교환 카르노맵 비교" loading="lazy" />
+            <div class="figure-caption">Fig 3 · 열 변수 교환 카르노맵 비교</div>
+          </div>
+          <div class="figure-card" onclick="openLightbox('images/greycode_index_conversion_xy_to_yx.png','그레이코드 인덱스 변환 XY→YX')">
+            <img src="images/greycode_index_conversion_xy_to_yx.png" alt="그레이코드 인덱스 변환" loading="lazy" />
+            <div class="figure-caption">Fig 4 · 그레이코드 인덱스 변환 XY→YX</div>
+          </div>
+          <div class="figure-card" onclick="openLightbox('images/kmap_variable_arrangement_equivalence_class.png','카르노맵 변수 배치 동치류')">
+            <img src="images/kmap_variable_arrangement_equivalence_class.png" alt="카르노맵 변수 배치 동치류" loading="lazy" />
+            <div class="figure-caption">Fig 5 · 변수 배치 동치류 (24→6→3)</div>
+          </div>
+          <div class="figure-card" onclick="openLightbox('images/dihedral_group_d4_symmetry_operations.png','이면체 D4 군 대칭 연산')">
+            <img src="images/dihedral_group_d4_symmetry_operations.png" alt="D4 대칭 연산" loading="lazy" />
+            <div class="figure-caption">Fig 6 · 이면체 D4 군 대칭 연산</div>
+          </div>
+          <div class="figure-card" onclick="openLightbox('images/xor_plane_checkerboard_example_1_and_2.png','XOR 체커보드 패턴 예시')">
+            <img src="images/xor_plane_checkerboard_example_1_and_2.png" alt="XOR 체커보드" loading="lazy" />
+            <div class="figure-caption">Fig 7 · XOR 체커보드 패턴 예시 1&amp;2</div>
+          </div>
+          <div class="figure-card" onclick="openLightbox('images/xnor_plane_checkerboard_example_1_and_2.png','XNOR 체커보드 패턴 예시')">
+            <img src="images/xnor_plane_checkerboard_example_1_and_2.png" alt="XNOR 체커보드" loading="lazy" />
+            <div class="figure-caption">Fig 8 · XNOR 체커보드 패턴 예시 1&amp;2</div>
+          </div>
+          <div class="figure-card" onclick="openLightbox('images/kmap_equivalence_transformation_generators.png','동치류 변환 생성자')">
+            <img src="images/kmap_equivalence_transformation_generators.png" alt="동치류 변환 생성자" loading="lazy" />
+            <div class="figure-caption">Fig 9 · 동치류 변환 생성자</div>
+          </div>
+          <div class="figure-card" onclick="openLightbox('images/greycode_array_diagonal_symmetry.png','그레이코드 배열 대각선 대칭')">
+            <img src="images/greycode_array_diagonal_symmetry.png" alt="그레이코드 대각선 대칭" loading="lazy" />
+            <div class="figure-caption">Fig 10 · 그레이코드 배열 대각선 대칭</div>
+          </div>
+          <div class="figure-card" onclick="openLightbox('images/alphabet_array_diagonal_symmetry.png','알파벳 배열 대각선 대칭')">
+            <img src="images/alphabet_array_diagonal_symmetry.png" alt="알파벳 배열 대각선 대칭" loading="lazy" />
+            <div class="figure-caption">Fig 11 · 알파벳 배열 대각선 대칭</div>
+          </div>
+          <div class="figure-card" onclick="openLightbox('images/greycode_index_conversion_zw_to_wz.png','그레이코드 인덱스 변환 ZW→WZ')">
+            <img src="images/greycode_index_conversion_zw_to_wz.png" alt="그레이코드 ZW→WZ" loading="lazy" />
+            <div class="figure-caption">Fig 12 · 그레이코드 인덱스 변환 ZW→WZ</div>
+          </div>
+          <div class="figure-card" onclick="openLightbox('images/ABCDXOR.png','ABCD XOR 카르노맵')">
+            <img src="images/ABCDXOR.png" alt="ABCD XOR" loading="lazy" />
+            <div class="figure-caption">Fig 13 · ABCD XOR 카르노맵</div>
+          </div>
+        </div>
       </article>
 
       <!-- Files -->
       <article class="card">
         <div class="card-title">핵심 파일 / Repository Files</div>
         <div class="file-list">
+          <a class="file-link" href="paper/통합논문_제출준비본.pdf" target="_blank">
+            <span>📄 통합논문_제출준비본.pdf</span>
+            <span class="file-badge">논문 PDF</span>
+          </a>
           <a class="file-link" href="https://github.com/inha20/1KMapStructureInvariance/blob/main/paper/통합논문_제출준비본.md" target="_blank" rel="noopener">
-            <span>📄 통합논문_제출준비본.md</span>
+            <span>📝 통합논문_제출준비본.md</span>
             <span class="file-badge">최신 준비본</span>
           </a>
           <a class="file-link" href="https://github.com/inha20/1KMapStructureInvariance/blob/main/research/KMapEquivalenceTheory.md" target="_blank" rel="noopener">
@@ -550,15 +594,22 @@
             <span>📄 HANDOVER_MASTER.md</span>
             <span class="file-badge">인수인계</span>
           </a>
-          <a class="file-link" href="https://github.com/inha20/1KMapStructureInvariance/blob/main/docs/SUBMISSION_READINESS_REPORT.md" target="_blank" rel="noopener">
-            <span>📄 SUBMISSION_READINESS_REPORT.md</span>
-            <span class="file-badge">제출 진단</span>
-          </a>
         </div>
       </article>
 
-    </div>
+      <!-- BibTeX -->
+      <article class="card">
+        <div class="card-title">인용 / Citation</div>
+        <pre style="background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;font-size:0.78rem;font-family:var(--font-mono);color:var(--text-muted);overflow-x:auto;white-space:pre-wrap;" id="bibtexBlock">@article{choi2024kmap,
+  title   = {생성형 AI 시대에서의 인간 구조적 사고의 교육적 의미},
+  author  = {Choi, Jonghun},
+  year    = {2024},
+  note    = {Case Study on Karnaugh Map Structural Pattern Analysis},
+  url     = {https://github.com/inha20/1KMapStructureInvariance}
+}</pre>
+      </article>
 
+    </div><!-- /content-grid -->
   </main>
 
   <footer class="site-footer">
@@ -568,30 +619,52 @@
   </footer>
 
   <script>
+    // Theme
     const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const htmlEl = document.documentElement;
+    const themeIcon   = document.getElementById('themeIcon');
+    const htmlEl      = document.documentElement;
+    const moonPath    = "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z";
+    const sunPath     = "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z";
 
-    const moonPath = "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z";
-    const sunPath = "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z";
-
-    function setTheme(theme) {
-      htmlEl.setAttribute('data-theme', theme);
-      localStorage.setItem('p1_theme', theme);
-      if (theme === 'dark') {
-        themeIcon.innerHTML = `<path d="${sunPath}"></path>`;
-      } else {
-        themeIcon.innerHTML = `<path d="${moonPath}"></path>`;
-      }
+    function setTheme(t) {
+      htmlEl.setAttribute('data-theme', t);
+      localStorage.setItem('p1_theme', t);
+      themeIcon.innerHTML = `<path d="${t === 'dark' ? sunPath : moonPath}"></path>`;
     }
-
-    const savedTheme = localStorage.getItem('p1_theme') || 'dark';
-    setTheme(savedTheme);
-
+    setTheme(localStorage.getItem('p1_theme') || 'dark');
     themeToggle.addEventListener('click', () => {
-      const currentTheme = htmlEl.getAttribute('data-theme');
-      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      setTheme(htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });
+
+    // Lightbox
+    const lb      = document.getElementById('lightbox');
+    const lbImg   = document.getElementById('lightboxImg');
+    const lbCap   = document.getElementById('lightboxCaption');
+    const lbClose = document.getElementById('lightboxClose');
+
+    function openLightbox(src, cap) {
+      lbImg.src = src; lbImg.alt = cap;
+      lbCap.textContent = cap;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    lbClose.addEventListener('click', closeLightbox);
+    lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    // BibTeX copy
+    function copyBibtex() {
+      const text = document.getElementById('bibtexBlock').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+      });
+    }
   </script>
 </body>
 </html>
