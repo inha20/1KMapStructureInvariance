@@ -1,8 +1,8 @@
-# 1KmapStructureInvariance
+# 1KMapStructureInvariance
 
 **논문 제목:** 생성형 AI 시대에서 인간 구조적 사고의 교육적 의미  
 **부제:** 생성형 AI 언어 생성 구조와 카르노맵 시각적 패턴 해석 사례를 중심으로  
-**GitHub Pages:** [포털 보기](https://inha20.github.io/1KmapStructureInvariance/)
+**GitHub Pages:** [포털 보기](https://inha20.github.io/1KMapStructureInvariance/)
 
 ---
 
@@ -18,7 +18,7 @@ Karnaugh map, Boolean function, XOR, XNOR, checkerboard pattern, visual pattern 
 본 연구는 카르노맵의 시각적 패턴 해석을 실증 사례로 삼아 이 차이를 분석하고,
 생성형 AI 시대 교육이 사고 과정 중심으로 발전해야 함을 제안한다.
 
-특히 5.5절에서는 4변수 카르노맵 변수 배치의 동치류 이론을 D₄ 군론을 통해 수학적으로 전개하여,
+특히 5.5절에서는 4변수 카르노맵 변수 배치의 동치류 이론을 행·열 변수 교환, 축 교환, 순환 이동을 통해 수학적으로 전개하여,
 독립 배치가 정확히 세 가지(AB/CD, AC/BD, AD/BC)로 한정됨을 증명한다.
 
 ---
@@ -35,18 +35,15 @@ Karnaugh map, Boolean function, XOR, XNOR, checkerboard pattern, visual pattern 
 ## Repository Structure (저장소 구조)
 
 ```
-1KmapStructureInvariance/
+1KMapStructureInvariance/
 ├─ README.md                          ← 이 파일
 ├─ index.html                         ← GitHub Pages 포털
 │
 ├─ paper/
 │  └─ 통합논문_제출준비본.md            ← ✅ 최신 완성본 (제출 준비 상태)
 │
-├─ research/
-│  └─ KMapEquivalenceTheory.md        ← 5.5절 원본 소논문 (변수 배치 동치류 이론)
-│
 └─ images/
-   ├─ fig5_5_1_coordinate_system.svg  ← 카르노맵 좌표계 SVG
+   ├─ coordinate_transformation_rows_column_swap.png  ← 카르노맵 좌표계·축 교환 그림 (PNG, 그림 5.5.1)
    ├─ ABCDXOR.png, ABCDXNOR.png ...  ← 변수 배치별 카르노맵 이미지
    └─ (카르노맵 관련 이미지 다수)
 ```
@@ -103,16 +100,15 @@ Karnaugh map, Boolean function, XOR, XNOR, checkerboard pattern, visual pattern 
 
 ## GitHub Setup (GitHub 설정)
 
-> ⚠️ **이미지 URL 확인 필수:** 논문 내 이미지는 GitHub user-attachments URL을 사용합니다.
-> 최종 제출 전 모든 이미지 URL을 브라우저에서 직접 확인하고,
-> GitHub 저장소가 **public** 상태인지 점검하세요.  
-> 상세 내용: `docs/SUBMISSION_READINESS_REPORT.md` 참조
+> ⚠️ **이미지 표시 확인 필수:** 논문 내 이미지는 저장소 내 상대 경로(`../images/`)로 연결되어 있습니다.
+> 최종 제출 전 모든 이미지가 정상 표시되는지 브라우저에서 직접 확인하고,
+> GitHub 저장소가 **public** 상태인지 점검하세요.
 
 **GitHub Pages 활성화 방법:**
 1. GitHub에서 이 저장소를 `public`으로 설정
 2. Settings → Pages → Source: `main` 브랜치 `/` (root) 선택
 3. `index.html`이 포털 페이지로 자동 배포됨
-4. URL: `https://inha20.github.io/1KmapStructureInvariance/`
+4. URL: `https://inha20.github.io/1KMapStructureInvariance/`
 
 ---
 
@@ -135,7 +131,7 @@ This repository is part of the **Structure Recognition Research Program**.
 | [3VariableRearrangementInvarianceMinorThesis](https://github.com/inha20/3VariableRearrangementInvarianceMinorThesis) | Empirical Case Study 3 |
 | [4StructureRecognitionTheory](https://github.com/inha20/4StructureRecognitionTheory) | Theoretical Hub |
 
-**Master Handover Document:** [MasterHandoverDocument.md](https://github.com/inha20/Research-Portfolio/blob/main/ProjectManagement/MasterHandoverDocument.md)
+**AI 단일 진입점:** [SESSION_START.md](https://github.com/inha20/inha20/blob/main/SESSION_START.md)
 
 ---
 

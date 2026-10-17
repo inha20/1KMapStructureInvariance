@@ -27,7 +27,7 @@ This repository is **Empirical Case Study 1** in the Structure Recognition Resea
 **Empirical Contribution:**
 - Documents that Karnaugh maps produce distinctive, recognizable visual patterns
 - Shows that XOR/XNOR functions produce checkerboard patterns
-- Demonstrates that certain patterns are recognized by humans before formal analysis
+- Records the author's observation that certain patterns are recognized before formal analysis (no human-subject data)
 - Provides the first case of "structure recognition preceding computation"
 
 **Role in Structure Recognition Theory (Paper 4):**
@@ -62,7 +62,7 @@ This repositions Karnaugh maps from optimization tools to **visual structure ana
 - [Structure Recognition Theory](https://github.com/inha20/4StructureRecognitionTheory) — Theoretical Framework
 - [Paper 2](https://github.com/inha20/2SymmetricBooleanFunctionMinorThesis) — Next in series
 - [Paper 3](https://github.com/inha20/3VariableRearrangementInvarianceMinorThesis)
-- [MasterHandoverDocument](../Research-Portfolio-main/ProjectManagement/MasterHandoverDocument.md)
+- [MasterHandoverDocument → SESSION_START.md](https://github.com/inha20/inha20/blob/main/SESSION_START.md)
 
 ---
 
