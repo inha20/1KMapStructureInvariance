@@ -106,11 +106,7 @@ Karnaugh map, Boolean function, XOR, XNOR, checkerboard pattern, visual pattern 
 > 최종 제출 전 모든 이미지가 정상 표시되는지 브라우저에서 직접 확인하고,
 > GitHub 저장소가 **public** 상태인지 점검하세요.
 
-**GitHub Pages 활성화 방법:**
-1. GitHub에서 이 저장소를 `public`으로 설정
-2. Settings → Pages → Source: `main` 브랜치 `/` (root) 선택
-3. `index.html`이 포털 페이지로 자동 배포됨
-4. URL: `https://inha20.github.io/1KMapStructureInvariance/`
+**GitHub Pages:** 포털은 이미 배포되어 있습니다 — [https://inha20.github.io/1KMapStructureInvariance/](https://inha20.github.io/1KMapStructureInvariance/)
 
 ---
 
