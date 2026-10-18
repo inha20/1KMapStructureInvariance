@@ -10,7 +10,7 @@
 
 ## Keywords
 
-Karnaugh map, Boolean function, XOR, XNOR, checkerboard pattern, visual pattern analysis, structural recognition, D₄ group theory, equivalence class, variable arrangement, generative AI, human structural thinking, educational implications
+Karnaugh map, Boolean function, XOR, XNOR, checkerboard pattern, visual pattern analysis, structural recognition, grid-symmetry group theory, equivalence class, variable arrangement, generative AI, human structural thinking, educational implications
 
 ---
 
@@ -28,8 +28,8 @@ Karnaugh map, Boolean function, XOR, XNOR, checkerboard pattern, visual pattern 
 ## Key Contributions (핵심 기여)
 
 - 생성형 AI 언어 생성 구조와 인간 구조적 사고의 본질적 차이 분석
-- 카르노맵 XOR/XNOR 체커보드 패턴 — 인간 구조 인식의 실증 사례 제시
-- 변수 배치 동치류 이론: 24 → 6 → 3 축약 과정의 수학적 증명 (D₄ 군론)
+- 카르노맵 XOR/XNOR 체커보드 패턴 — 인간 구조 인식의 관찰 사례 제시
+- 변수 배치 동치류 이론: 24 → 6 → 3 축약 과정의 수학적 증명 (행·열 변수 교환, 축 교환, 순환 이동)
 - 생성형 AI 시대 교육 방향 제안 (사고 과정 중심, 메타인지 강화, AI 리터러시)
 
 ---
@@ -42,7 +42,7 @@ Karnaugh map, Boolean function, XOR, XNOR, checkerboard pattern, visual pattern 
 ├─ index.html                         ← GitHub Pages 포털
 │
 ├─ paper/
-│  └─ 통합논문_제출준비본.md            ← ✅ 최신 완성본 (제출 준비 상태)
+│  └─ 통합논문_제출준비본.md            ← 최신 정리본 (초기 연구 노트)
 │
 └─ images/
    ├─ coordinate_transformation_rows_column_swap.png  ← 카르노맵 좌표계·축 교환 그림 (PNG, 그림 5.5.1)
@@ -72,7 +72,7 @@ Karnaugh map, Boolean function, XOR, XNOR, checkerboard pattern, visual pattern 
     5.5.1 좌표계 및 표기법
     5.5.2 변수 순서 교환과 거울 대칭성
     5.5.3 축 교환과 대각선 대칭성
-    5.5.4 동치 변환의 정의 (D₄ 군론 해석 포함)
+    5.5.4 동치 변환의 정의 (격자 대칭군 W 해석 포함)
     5.5.5 변수 배치의 동치류 분류
     5.5.6 소결론
   5.6 변수 재배열 기반 해석 방법

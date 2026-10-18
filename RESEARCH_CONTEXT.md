@@ -26,13 +26,13 @@ This repository is **Empirical Case Study 1** in the Structure Recognition Resea
 
 **Empirical Contribution:**
 - Documents that Karnaugh maps produce distinctive, recognizable visual patterns
-- Shows that XOR/XNOR functions produce checkerboard patterns
+- Shows that XOR/XNOR (parity) functions of all map variables produce checkerboard patterns when the map axes are in Gray-code order
 - Records the author's observation that certain patterns are recognized before formal analysis (no human-subject data)
-- Provides the first case of "structure recognition preceding computation"
+- Provides an initial case of "structure recognition preceding computation" (author observation, not tested)
 
 **Role in Structure Recognition Theory (Paper 4):**
 - Supports H2 (Representation Transformation Hypothesis): Karnaugh maps transform abstract Boolean expressions into visible structures
-- Supports H5 (Explanation Anticipation): the checkerboard pattern "feels like it should have an explanation"
+- Motivates H5 (Explanation Anticipation; exploratory, untested here): the checkerboard pattern "feels like it should have an explanation"
 - Provides the origin story of the research program's central question
 
 ---
@@ -52,7 +52,7 @@ This repository is **Empirical Case Study 1** in the Structure Recognition Resea
 **Traditional Karnaugh map research focus:** Logic minimization  
 **This paper's contribution:** Visual structure analysis — Karnaugh maps as cognitive tools
 
-This repositions Karnaugh maps from optimization tools to **visual structure analysis instruments**, which is a meaningful conceptual shift.
+This paper also treats Karnaugh maps as **visual structure analysis instruments**, in addition to their use as optimization tools.
 
 ---
 
