@@ -67,4 +67,4 @@ This paper also treats Karnaugh maps as **visual structure analysis instruments*
 ---
 
 *Maintained as part of the Structure Recognition Research Program*  
-*Author: Choi Jonghun · Independent researcher · Graduate of Inha Technical College*
+*Author: Choi Jonghun · Independent researcher · 2nd-year student at Inha Technical College*
