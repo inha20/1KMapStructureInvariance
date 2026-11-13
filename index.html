@@ -383,8 +383,9 @@ html[data-theme="dark"] .btn-primary,html[data-theme="dark"] .brand-mark{color:#
 .skip-link{position:absolute;left:12px;top:-60px;z-index:1000;padding:.55rem .9rem;border-radius:6px;background:var(--text);color:var(--bg);font-size:.85rem;font-weight:600;text-decoration:none}
 .skip-link:focus{top:12px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-/* long display equations scroll inside their own box instead of widening the page */
+/* long display equations scroll inside their own box instead of widening the page; hidden MathML must stay inside scrollers */
 .katex-display{overflow-x:auto;overflow-y:hidden;max-width:100%}
+.tbl-wrap,.table-wrap,pre{position:relative}
 /* header: the page name shrinks instead of pushing the menu off a narrow screen */
 a.brand{color:inherit;text-decoration:none}
 .nav-inner{min-width:0}
@@ -400,7 +401,7 @@ a.brand{color:inherit;text-decoration:none}
   .global-nav{position:static}
   .global-nav-dropdown{left:12px!important;right:12px;min-width:0!important;max-height:calc(100vh - 80px);overflow-y:auto}
 }
-</style>
+/*end-shell*/</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -725,6 +726,7 @@ a.brand{color:inherit;text-decoration:none}
 (function(){
   'use strict';
   var menus=[].slice.call(document.querySelectorAll('.nav-dropdown,.global-nav'));
+  var closing=false;
   function setOpen(m,open){m.classList.toggle('open',open);var b=m.querySelector('button');if(b)b.setAttribute('aria-expanded',open?'true':'false');}
   menus.forEach(function(m){
     var b=m.querySelector('button');if(!b)return;
@@ -732,13 +734,15 @@ a.brand{color:inherit;text-decoration:none}
     b.addEventListener('click',function(e){e.stopPropagation();setOpen(m,!m.classList.contains('open'));});
   });
   menus.forEach(function(m){
-    m.addEventListener('focusin',function(e){if(e.target.matches&&e.target.matches(':focus-visible'))setOpen(m,true);});
+    m.addEventListener('focusin',function(e){if(closing)return;if(e.target.matches&&e.target.matches(':focus-visible'))setOpen(m,true);});
     m.addEventListener('focusout',function(e){if(!e.relatedTarget||!m.contains(e.relatedTarget))setOpen(m,false);});
   });
   document.addEventListener('click',function(e){menus.forEach(function(m){if(!m.contains(e.target))setOpen(m,false);});});
   document.addEventListener('keydown',function(e){
     if(e.key!=='Escape')return;
-    menus.forEach(function(m){if(m.classList.contains('open')){setOpen(m,false);var b=m.querySelector('button');if(b)b.focus();}});
+    menus.forEach(function(m){if(!m.classList.contains('open'))return;
+      closing=true;setOpen(m,false);var b=m.querySelector('button');if(b)b.focus();closing=false;
+    });
   });
   var tt=document.getElementById('themeToggle');
   if(tt)tt.addEventListener('click',function(){try{localStorage.setItem('sr_theme',document.documentElement.getAttribute('data-theme'));}catch(e){}});
