@@ -123,7 +123,7 @@ This repository is part of the **Structure Recognition Research Program**.
 
 | Repository | Role |
 |---|---|
-| [Research-Portfolio](https://github.com/inha20/Research-Portfolio) | Program Hub |
+| [Research Hub](https://inha20.github.io/Research-Portfolio/) | Program Hub (website) |
 | [1KMapStructureInvariance](https://github.com/inha20/1KMapStructureInvariance) | Empirical Case Study 1 ← You are here |
 | [2SymmetricBooleanFunctionMinorThesis](https://github.com/inha20/2SymmetricBooleanFunctionMinorThesis) | Empirical Case Study 2 |
 | [3VariableRearrangementInvarianceMinorThesis](https://github.com/inha20/3VariableRearrangementInvarianceMinorThesis) | Empirical Case Study 3 |
